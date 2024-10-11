@@ -14,7 +14,8 @@
  */
 
 import { useEffect, useState } from "react";
-import Loading from "./Loading";
+import Loading from "./utils/Loading";
+import Error from "./utils/Error";
 
 export default function UserData() {
     // State to store fetched user data
@@ -67,8 +68,8 @@ export default function UserData() {
     }
 
     if (error) {
-        return <p className="text-red-500">Error: {error}</p>;
-    }
+      return <Error message={error} />;
+  }
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
