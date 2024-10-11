@@ -1,18 +1,43 @@
+/**
+ * Form Component
+ *
+ * This component renders a form for user input, including fields for name, email, and password.
+ * It validates the inputs and provides feedback for any errors encountered during submission.
+ * The password field includes a toggle feature to show/hide the password.
+ *
+ * Usage:
+ * ```jsx
+ * <Form />
+ * ```
+ */
+
 import React from "react";
 import { Icon } from "react-icons-kit";
 import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 
 export default function Form() {
+    // State to store form input data
     const [formData, setFormData] = React.useState({
         name: "",
         email: "",
         password: "",
     });
+
+    // State to store form validation errors
     const [errors, setErrors] = React.useState({});
+
+    // State to manage password field type (text/password)
     const [type, setType] = React.useState("password");
+
+    // State to manage the visibility icon for the password field
     const [icon, setIcon] = React.useState(eyeOff);
 
+    /**
+     * Handles changes in form input fields.
+     *
+     * @param {Object} e - The event object from the input field.
+     */
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -20,6 +45,12 @@ export default function Form() {
         });
     };
 
+    /**
+     * Validates the form data for required fields and formats.
+     *
+     * @param {Object} formData - The current state of the form data.
+     * @returns {Object} - An object containing any validation errors.
+     */
     const validateForm = (formData) => {
         let error = {};
 
@@ -49,6 +80,11 @@ export default function Form() {
         return error;
     };
 
+    /**
+     * Handles the form submission, validates the input, and logs the data.
+     *
+     * @param {Object} e - The event object from the form submission.
+     */
     const handleSubmit = (e) => {
         e.preventDefault();
         const newErrors = validateForm(formData);
@@ -66,6 +102,9 @@ export default function Form() {
         }
     };
 
+    /**
+     * Toggles the visibility of the password field.
+     */
     const handleToggle = () => {
         if (type === "password") {
             setIcon(eye);
@@ -141,11 +180,7 @@ export default function Form() {
                             className="absolute right-0 bottom-2 pr-2 text-gray-600 cursor-pointer"
                             onClick={handleToggle}
                         >
-                            <Icon
-                                className=""
-                                icon={icon}
-                                size={25}
-                            />
+                            <Icon className="" icon={icon} size={25} />
                         </span>
                     </div>
 
